@@ -9,7 +9,7 @@ work in progress (alpha)
 
 ![QT Py ESP32-S3 dev board with rotary encoder and gamepad](qtpyS3Zero2.jpeg)
 
-- 8BitDo Zero 2f Bluetooth gamepad
+- 8BitDo Zero 2 Bluetooth gamepad
   ([product page](https://www.8bitdo.com/zero2/))
 
 - Adafruit QT Py ESP32-S3 with 8MB Flash and no PSRAM
