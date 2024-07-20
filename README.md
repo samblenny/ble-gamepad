@@ -10,16 +10,16 @@ work in progress (alpha)
 When I tried my 8BitDo Zero 2 and 8BitDo SN 30 Pro gamepads, neither of them
 showed up with `adafruit_ble.BLERadio.start_scan()`. I don't have the right RF
 test gear to verify which version of Bluetooth the gamepads are actually
-advertising. But, I'm guessing it's probably Bluetooth Classic or Bluetooth
-4.x. When I tried a BLE scan with the iOS
+advertising. But, I'm guessing it's probably Bluetooth Classic or perhaps
+Bluetooth 4.x. When I tried a BLE scan with the iOS
 [nRF Connect](https://apps.apple.com/us/app/nrf-connect-for-mobile/id1054362403)
 app, it also failed to see either of my gamepads. But, they both showed up when
 I scanned with `bluetoothctl` on Linux.
 
 According to
 [espressif's docs](https://docs.espressif.com/projects/esp-idf/en/stable/esp32s3/api-guides/bluetooth.html),
-the ESP32-S3 chip I'm using appears to only support, *specifically*, bluetooth
-5.0 (*not* 4.x, nor Classic).
+the ESP32-S3 chip I'm using appears to only support bluetooth 5.0 (definitely
+*not* Classic; unsure about 4.x LE).
 
 So, what to do? According to what I read, PowerA sells Bluetooth 5.0 gamepads
 for use with Nintendo Switch. Seems like those might be worth a try. I also saw
