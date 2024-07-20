@@ -29,7 +29,7 @@ sync: bundle
 # serial device that happens to enumerate when I plug the board into my mac.
 # It's very likely the device name may be different on other systems.
 tty:
-	screen -fn /dev/tty.usbmodem* 256000
+	screen -fn /dev/tty.usbmodem* 115200
 
 clean:
 	rm -rf build

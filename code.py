@@ -6,12 +6,14 @@
 # Docs:
 # - https://learn.adafruit.com/adafruit-i2c-qt-rotary-encoder/python-circuitpython
 # - https://docs.circuitpython.org/projects/seesaw/en/latest/api.html
+# - https://docs.circuitpython.org/projects/ble/en/latest/api.html
 #
 from board import STEMMA_I2C
 from gc import collect, mem_free
 from time import sleep
 import usb_cdc
 
+from adafruit_ble import BLERadio
 from adafruit_seesaw import digitalio
 from adafruit_seesaw.seesaw import Seesaw
 
@@ -33,17 +35,31 @@ def drainCDCBuf():
 def showMenu(choices, selection):
     # Show the menu with selected item highlighted
     assert (0 <= selection) and (selection < len(choices)), 'selection OOR'
-    for (i, c) in enumerate(choices):
+    for (i, (name, _)) in enumerate(choices):
         if i == selection:
-            print('[[%s]] ' % c, end='')
+            print('[[%s]] ' % name, end='')
         else:
-            print('  %s   ' % c, end='')
+            print('  %s   ' % name, end='')
     print()
 
 def doMenuAction(choices, selection):
     # Perform the action for the selected menu item
     assert (0 <= selection) and (selection < len(choices)), 'selection OOR'
-    print(choices[selection], 'is not implemented yet')
+    (name, actionFn) = choices[selection]
+    if actionFn is None:
+        print(name, 'is not implemented yet')
+    else:
+        actionFn()
+
+def scan():
+    # Scan for BLE devices
+    t = 30
+    print('Scanning with %d second timeout' % t)
+    radio = BLERadio()
+    for adv in radio.start_scan(timeout=t):
+        print(adv)
+    print('Scan done')
+
 
 def main():
     # Initialize stuff then start event loop
@@ -56,8 +72,15 @@ def main():
     ssw.pin_mode(24, Seesaw.INPUT_PULLUP)    # add pullup to knob-click button
     # MAIN EVENT LOOP
     prevClick = False
-    choices = ['Scan', 'Pair', 'Info', 'Connect', 'Disconnect']
+    choices = [         # each item should be a tuple of (name, bound-function)
+        ('Scan', scan),
+        ('Pair', None),
+        ('Info', None),
+        ('Connect', None),
+        ('Disconnect', None),
+    ]
     selection = 0
+    showMenu(choices, selection)
     while True:
         sleep(0.01)
         # Check for newline wake sequence on the serial console
