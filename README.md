@@ -4,9 +4,9 @@
 
 **work in progress (alpha)**
 
-I wanted a no-solder-required controller for CircuitPython game projects. The
-trick is that ESP32-S3 only supports Bluetooth 5.0 BLE. Many gamepads currently
-on the market use older Bluetooth versions that don't work with the S3's radio.
+I wanted a solid no-solder-required gamepad option to use in future projects.
+The trick is that many gamepads currently on the market use old Bluetooth
+versions, while the ESP32-S3 radio needs Bluetooth 5.0 BLE.
 
 
 ## Bluetooth Version Compatibility Problems
@@ -27,7 +27,10 @@ their specifications.
 
 If you want to use a gamepad with an ESP32-S3, be sure to check the
 manufacturer specs carefully. Gamepads that don't specifically mention
-"Bluetooth 5.0" are unlikely to work with the S3's radio.
+"Bluetooth 5.0" are unlikely to work with the S3's radio. Also, keep in mind
+that if you get a Bluetooth 5.0 gamepad designed to act like a Switch Pro
+controller, there's a good chance it may be incompatible with games designed
+for use with Xinput controllers.
 
 
 ## Hardware
