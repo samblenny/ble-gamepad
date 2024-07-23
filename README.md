@@ -13,8 +13,8 @@ versions, while the ESP32-S3 radio needs Bluetooth 5.0 BLE.
 
 ## Bluetooth Version Compatibility Problems
 
-[Espressif's docs](https://docs.espressif.com/projects/esp-idf/en/stable/esp32s3/api-guides/bluetooth.html),
-for the ESP32-S3 say that it supports bluetooth 5.0, but not Bluetooth classic.
+[Espressif's ESP32-S3 docs](https://docs.espressif.com/projects/esp-idf/en/stable/esp32s3/api-guides/bluetooth.html)
+say that it supports bluetooth 5.0, but not Bluetooth classic.
 
 When I tried my old 8BitDo Zero 2 and 8BitDo SN 30 Pro gamepads, neither of
 them showed up with `adafruit_ble.BLERadio.start_scan()`. But, when I tried an
