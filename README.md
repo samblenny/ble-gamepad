@@ -8,6 +8,8 @@ I wanted a solid no-solder-required gamepad option to use in future projects.
 The trick is that many gamepads currently on the market use old Bluetooth
 versions, while the ESP32-S3 radio needs Bluetooth 5.0 BLE.
 
+![QT Py ESP32-S3 dev board with rotary encoder and gamepad](qtpyS3Ultimate.jpeg)
+
 
 ## Bluetooth Version Compatibility Problems
 
@@ -34,8 +36,6 @@ for use with Xinput controllers.
 
 
 ## Hardware
-
-![QT Py ESP32-S3 dev board with rotary encoder and gamepad](qtpyS3Ultimate.jpeg)
 
 - 8BitDo Ultimate Controller with Charging Dock (Bluetooth 5.0 gamepad)
   ([product page](https://www.8bitdo.com/ultimate-bluetooth-controller/))
