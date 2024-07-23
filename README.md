@@ -2,39 +2,40 @@
 <!-- SPDX-FileCopyrightText: Copyright 2024 Sam Blenny -->
 # BLE Gamepad
 
-work in progress (alpha)
+**work in progress (alpha)**
+
+I wanted a no-solder-required controller for CircuitPython game projects. The
+trick is that ESP32-S3 only supports Bluetooth 5.0 BLE. Many gamepads currently
+on the market use older Bluetooth versions that don't work with the S3's radio.
 
 
 ## Bluetooth Version Compatibility Problems
 
-When I tried my 8BitDo Zero 2 and 8BitDo SN 30 Pro gamepads, neither of them
-showed up with `adafruit_ble.BLERadio.start_scan()`. I don't have the right RF
-test gear to verify which version of Bluetooth the gamepads are actually
-advertising. But, I'm guessing it's probably Bluetooth Classic or perhaps
-Bluetooth 4.x. When I tried a BLE scan with the iOS
-[nRF Connect](https://apps.apple.com/us/app/nrf-connect-for-mobile/id1054362403)
-app, it also failed to see either of my gamepads. But, they both showed up when
-I scanned with `bluetoothctl` on Linux.
+[Espressif's docs](https://docs.espressif.com/projects/esp-idf/en/stable/esp32s3/api-guides/bluetooth.html),
+for the ESP32-S3 say that it supports bluetooth 5.0, but not Bluetooth classic.
 
-According to
-[espressif's docs](https://docs.espressif.com/projects/esp-idf/en/stable/esp32s3/api-guides/bluetooth.html),
-the ESP32-S3 chip I'm using appears to only support bluetooth 5.0 (definitely
-*not* Classic; unsure about 4.x LE).
+When I tried my old 8BitDo Zero 2 and 8BitDo SN 30 Pro gamepads, neither of
+them showed up with `adafruit_ble.BLERadio.start_scan()`. But, when I tried an
+8BitDo Ultimate Controller (Bluetooth 5.0 charging stand version), it did show
+up.
 
-So, what to do? According to what I read, PowerA sells Bluetooth 5.0 gamepads
-for use with Nintendo Switch. Seems like those might be worth a try. I also saw
-an interesting wireless keyboard that uses Bluetooth 5.1. Not sure if 5.1 will
-be backwards compatible with 5.0. Another option would be to try using the
-[Adafruit USB Host BFF](https://www.adafruit.com/product/5956) with a wired USB
-gamepad. Wireless seems more appealing though.
+Based on playing with a few Bluetooth scanner apps and reading *a lot* of
+gamepad product pages, my best guess is that, most Bluetooth gamepads currently
+on the market (July 2024) probably use Bluetooth Classic. The main exception is
+some newer Nintendo Switch compatible gamepads that mention Bluetooth 5.0 in
+their specifications.
+
+If you want to use a gamepad with an ESP32-S3, be sure to check the
+manufacturer specs carefully. Gamepads that don't specifically mention
+"Bluetooth 5.0" are unlikely to work with the S3's radio.
 
 
 ## Hardware
 
-![QT Py ESP32-S3 dev board with rotary encoder and gamepad](qtpyS3Zero2.jpeg)
+![QT Py ESP32-S3 dev board with rotary encoder and gamepad](qtpyS3Ultimate.jpeg)
 
-- 8BitDo Zero 2 Bluetooth gamepad
-  ([product page](https://www.8bitdo.com/zero2/))
+- 8BitDo Ultimate Controller with Charging Dock (Bluetooth 5.0 gamepad)
+  ([product page](https://www.8bitdo.com/ultimate-bluetooth-controller/))
 
 - Adafruit QT Py ESP32-S3 with 8MB Flash and no PSRAM
   ([product page](https://www.adafruit.com/product/5426),
