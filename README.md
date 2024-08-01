@@ -2,11 +2,19 @@
 <!-- SPDX-FileCopyrightText: Copyright 2024 Sam Blenny -->
 # BLE Gamepad
 
-**work in progress (alpha)**
+**NOTE: THIS IS A EXPERIMENT THAT DIDN'T WORK OUT.**
 
 I wanted a solid no-solder-required gamepad option to use in future projects.
-The trick is that many gamepads currently on the market use old Bluetooth
-versions, while the ESP32-S3 radio needs Bluetooth 5.0 BLE.
+The trick is that many gamepads currently on the market use Bluetooth Classic,
+while the ESP32-S3 radio is limited to Bluetooth 5.0 BLE. I thought that I
+might be able to get something going with one of the Switch Pro compatible
+controllers that advertise using Bluetooth 5.0 LE. But, it didn't work out.
+
+After trying lots of stuff without success, I think the way to go is probably
+using a different CircuitPython board that has a Bluetooth Classic radio or to
+use a USB host board with a USB wireless gamepad adapter.
+
+This is the hardware setup that I used for experimenting with BLE 5.0:
 
 ![QT Py ESP32-S3 dev board with rotary encoder and gamepad](qtpyS3Ultimate.jpeg)
 
@@ -19,20 +27,22 @@ say that it supports bluetooth 5.0, but not Bluetooth classic.
 When I tried my old 8BitDo Zero 2 and 8BitDo SN 30 Pro gamepads, neither of
 them showed up with `adafruit_ble.BLERadio.start_scan()`. But, when I tried an
 8BitDo Ultimate Controller (Bluetooth 5.0 charging stand version), it did show
-up.
+up in the BLE scan as a device named `80NA`. However, the available
+characteristics of the `80NA` device didn't obviously match up with anything
+that I was able to find documentation for.
 
 Based on playing with a few Bluetooth scanner apps and reading *a lot* of
 gamepad product pages, my best guess is that, most Bluetooth gamepads currently
 on the market (July 2024) probably use Bluetooth Classic. The main exception is
 some newer Nintendo Switch compatible gamepads that mention Bluetooth 5.0 in
-their specifications.
+their specifications. I don't know what those gamepads actually use BLE 5.0
+for. The one that I played around with advertises as "Pro Controller" on
+Bluetooth Classic and "80NA" on BLE 5.0. It's possible the BLE 5 stuff is used
+by the iOS app for remapping buttons on that gamepad.
 
-If you want to use a gamepad with an ESP32-S3, be sure to check the
-manufacturer specs carefully. Gamepads that don't specifically mention
-"Bluetooth 5.0" are unlikely to work with the S3's radio. Also, keep in mind
-that if you get a Bluetooth 5.0 gamepad designed to act like a Switch Pro
-controller, there's a good chance it may be incompatible with games designed
-for use with Xinput controllers.
+My main conclusion was that I should try again using a board that has a
+Bluetooth Classic radio, or use a USB wireless gamepad adapter, because most
+current wireless gamepads appear to use Bluetooth Classic.
 
 
 ## Hardware
@@ -55,10 +65,8 @@ for use with Xinput controllers.
   ([product page](https://www.adafruit.com/product/4210))
 
 
-## Getting Started
+## Code
 
-To begin, assemble the rotary encoder and knob,
-[install CircuitPython 9.1](https://learn.adafruit.com/adafruit-qt-py-esp32-s3/circuitpython-2)
-then copy the project bundle code to your CIRCUITPY drive. Once that's all done,
-`code.py` will begin sending messages to the serial console. Use the rotary
-encoder knob to select menu options.
+My BLE 5.0 scanner code is in [code.py](code.py). It doesn't do much in its
+current form, but I'm leaving it here because it might be useful to copy and
+paste into other projects.
